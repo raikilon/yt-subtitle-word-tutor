@@ -3,8 +3,16 @@ const fs = require('fs');
 const esbuild = require('esbuild');
 
 const rootDir = path.join(__dirname, '..');
-const entryPoint = path.join(rootDir, 'src', 'content.ts');
-const outFile = path.join(rootDir, 'dist', 'content.js');
+const bundles = [
+  {
+    entryPoint: path.join(rootDir, 'src', 'content.ts'),
+    outFile: path.join(rootDir, 'dist', 'content.js')
+  },
+  {
+    entryPoint: path.join(rootDir, 'src', 'shared', 'bubble-inject.ts'),
+    outFile: path.join(rootDir, 'dist', 'context-bubble.js')
+  }
+];
 
 const resolveTsImports = {
   name: 'resolve-ts-imports',
@@ -24,10 +32,9 @@ const resolveTsImports = {
   }
 };
 
-fs.mkdirSync(path.dirname(outFile), { recursive: true });
-
-esbuild
-  .build({
+const buildBundle = ({ entryPoint, outFile }) => {
+  fs.mkdirSync(path.dirname(outFile), { recursive: true });
+  return esbuild.build({
     entryPoints: [entryPoint],
     bundle: true,
     format: 'iife',
@@ -36,5 +43,7 @@ esbuild
     outfile: outFile,
     tsconfig: path.join(rootDir, 'tsconfig.json'),
     plugins: [resolveTsImports]
-  })
-  .catch(() => process.exit(1));
+  });
+};
+
+Promise.all(bundles.map(buildBundle)).catch(() => process.exit(1));

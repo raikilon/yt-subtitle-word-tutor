@@ -1,4 +1,5 @@
 import type { TranslateMessage, TranslateResponse } from './constants.js';
+import { ContextMenuTranslator } from './context-menu.js';
 import { DefaultsInitializer } from './defaults.js';
 import { TranslateMessageHandler } from './messages.js';
 import { StorageClient } from './storage.js';
@@ -11,10 +12,18 @@ export class BackgroundApp {
   private readonly vocab = new VocabStore(this.storage);
   private readonly translationService = new TranslationService(new MyMemoryTranslationProvider());
   private readonly translator = new TranslateMessageHandler(this.translationService, this.vocab);
+  private readonly contextMenu = new ContextMenuTranslator(
+    this.storage,
+    this.translationService,
+    this.vocab
+  );
 
   init(): void {
+    this.contextMenu.init();
+
     chrome.runtime.onInstalled.addListener(() => {
       void this.defaults.ensureDefaults();
+      this.contextMenu.ensureContextMenu();
     });
 
     chrome.runtime.onMessage.addListener(

@@ -9,7 +9,7 @@
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "contextMenus", "scripting", "activeTab"],
   "host_permissions": ["https://api.mymemory.translated.net/*"],
   "background": {
     "service_worker": "background.js",
