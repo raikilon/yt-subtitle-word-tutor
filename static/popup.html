@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YouTube Subtitle word tutor</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <div class="title">YouTube Subtitle word tutor</div>
+      <div class="subtitle">Click subtitle words to translate.</div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-button" data-tab="settings" type="button">Settings</button>
+      <button class="tab-button" data-tab="vocab" type="button">Vocabulary</button>
+    </div>
+
+    <section id="settings" class="tab-panel">
+      <label class="field">
+        <span>Learning language</span>
+        <select id="learningLang"></select>
+      </label>
+
+      <label class="field">
+        <span>Native language</span>
+        <select id="nativeLang"></select>
+      </label>
+
+      <button id="saveSettings" class="primary" type="button">Save settings</button>
+      <div id="saveStatus" class="status">Saved.</div>
+    </section>
+
+    <section id="vocab" class="tab-panel">
+      <div class="vocab-actions">
+        <button id="exportCsv" type="button">Export CSV</button>
+        <button id="resetVocab" class="danger" type="button">Reset</button>
+      </div>
+
+      <div id="vocabEmpty" class="empty">No words saved yet.</div>
+      <ul id="vocabList" class="vocab-list"></ul>
+    </section>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
