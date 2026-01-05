@@ -1,6 +1,6 @@
 # YouTube Subtitle word tutor
 
-A simple browser extension that lets you click YouTube subtitle words to translate them and save vocabulary.
+A simple browser extension that lets you click YouTube subtitle words to translate them, save vocabulary, and export to Anki.
 
 ## Setup
 
@@ -30,6 +30,19 @@ npm run build
 - Click any subtitle word to see a translation bubble.
 - Open the **Vocabulary** tab to export CSV or reset the list.
 
+## Export to Anki
+
+The exported CSV has two columns: word, translation (no header).
+
+1. In the extension popup, go to **Vocabulary** and click **Export CSV**.
+2. Open Anki: https://apps.ankiweb.net/
+3. In Anki, go to **File > Import**, choose the downloaded CSV.
+4. In the import options:
+   - Note type: **Basic**
+   - Fields separated by: **Comma**
+   - Map **Field 1** to front (word) and **Field 2** to back (translation)
+   - Pick or create a deck
+5. Click **Import**.
 
 ## Demo
 ![alt text](demo-images/settings.png)
